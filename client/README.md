@@ -59,3 +59,48 @@ The frontend is a Vue 3 application that consumes the data from the backend.
 
 ### Customize Configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+###
+###
+###
+### Katy's Notes
+###
+###
+###
+###
+### Future Enhancements:
+- Use getters instead computed in complex app.
+    (I provided the example of using getters for filteredItems in Category Component.)
+-  UI/UX Enhancements 
+    - I already added buttons 'Home' and 'Back'.
+    - Add Loader.
+    - Visual design improving.
+- Add 'page not found'
+- Detailed Error Handling (now missing indication for errors: server is down or bad request or another problem)
+- More Complex Backend 
+    - backend is fairly simple, serving static JSON data from a single endpoint.
+    - handle more complex scenarios, like adding, updating, or deleting categories, items, and subitems.
+- Advanced Search/Filtering
+
+### Dynamic UI Updates
+- The data fetched using Axios is stored in a reactive state managed by Pinia. 
+When the state (such as the list of categories or items) changes, Vue automatically re-renders any components that depend on this data.
+
+### Dynamic Data Flow
+- When the application loads, it fetches the JSON data from the server.
+- This data is stored in the state managed by Pinia.
+- Components like CategoryComponent, ItemComponent, and SubitemComponent use props to dynamically render the data passed to them, allowing the UI to adapt based on the specific data for each category, item, and subitem.
+
+### Express Server
+- Express is a minimal and flexible Node.js web application framework used for building web and mobile applications.
+- Routing: Express handles HTTP requests, allowing the app to respond to different endpoints. For example, the /api/data endpoint serves the JSON data.
+- Middleware: Express uses middleware functions like cors to handle cross-origin requests, enabling the frontend to fetch data from the backend.
+
+### Axios and State Management
+- Axios is used to fetch data from the server, which is hosted on a local Express server at http://localhost:3001/api/data. Axios makes an HTTP GET request to this endpoint to retrieve the JSON data, which contains categories, items, and subitems.
+- Once the data is fetched, it is stored in the state using Pinia, a state management library for Vue 3. This data is then accessed and used by various components to render categories, items, and subitems dynamically in the UI. The state is also reactive, meaning any changes to the data (like updates from a search query) automatically update the UI.
+
+### CORS Configuration
+- CORS is enabled to allow requests from the frontend running on a different port.
+
+

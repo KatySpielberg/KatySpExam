@@ -64,6 +64,9 @@ export default {
       isOpen: false,
     };
   },
+
+  // This watches for changes to the searchQuery 
+  // and automatically expands the category
   watch: {
     searchQuery(newQuery) {
       this.isOpen = !!newQuery;

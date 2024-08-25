@@ -2,7 +2,9 @@
   <div id="app">
     <!-- Only render SearchComponent and CategoryComponent on the home route -->
     <div v-if="$route.name === 'Home'">
+      <!-- The main app container that renders the search component and the category components -->
       <SearchComponent @search="handleSearch" />
+      <!-- Renders each category and its items -->
       <CategoryComponent 
         v-for="category in filteredCategories" 
         :key="category.id" 
@@ -24,10 +26,18 @@ import { useMainStore } from './stores/main';
 export default {
   name: 'App',
   components: {
-    SearchComponent,
-    CategoryComponent,
+    SearchComponent, // The component that handles user input for searching items and subitems.
+    CategoryComponent, // The component that renders categories and their respective items.
   },
+
+  // The setup method is part of the Composition API in Vue 3 
+  // and is used to organize and set up reactive 
+  // state, lifecycle hooks, and other logic.
   setup() {
+    // Pinia is used for state management across the app. 
+    // The main store (useMainStore) handles loading data, 
+    // storing selected item details, 
+    // and managing state across components.
     const store = useMainStore();
     store.loadItems();
 
@@ -35,7 +45,7 @@ export default {
   },
   data() {
     return {
-      searchQuery: '',
+      searchQuery: '', // Holds the current search query from the search component.
     };
   },
   computed: {
@@ -43,7 +53,8 @@ export default {
       if (!this.searchQuery) {
         return this.store.categories; // Use categories from the store
       }
-
+      // This checks each item in the category to see if it matches the search query. 
+      // It looks at the item’s name, details, and the names and details of any subitems.
       const query = this.searchQuery.toLowerCase();
 
       return this.store.categories.map(category => {
@@ -77,6 +88,7 @@ export default {
   },
   methods: {
     handleSearch(query) {
+      // Update the search query when the user types in the search box.
       this.searchQuery = query;
     },
   },
